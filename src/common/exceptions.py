@@ -49,8 +49,14 @@ def error_handle(e):
     elif isinstance(e, ValidationError):
         return jsonify({"code": 400, "message": e.message}), HTTPStatus.BAD_REQUEST
     elif isinstance(e, JsonSchemaValidationError):
-        return jsonify({"code": 400, "message": str(e).split('\n\n')[0]}), HTTPStatus.BAD_REQUEST
+        return (
+            jsonify({"code": 400, "message": str(e).split("\n\n")[0]}),
+            HTTPStatus.BAD_REQUEST,
+        )
     else:
         logging.error("an unexpected error occurred")
         logging.error(traceback.format_exc())
-        return jsonify({"code": 500, "message": str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
+        return (
+            jsonify({"code": 500, "message": str(e)}),
+            HTTPStatus.INTERNAL_SERVER_ERROR,
+        )

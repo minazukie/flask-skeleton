@@ -38,10 +38,14 @@ class AppFactory:
         for url, resource in routes.items():
             if isinstance(resource, tuple) or isinstance(resource, list):
                 resource_class, resource_args = resource
-                api.add_resource(resource_class, url, resource_class_args=tuple(resource_args))
+                api.add_resource(
+                    resource_class, url, resource_class_args=tuple(resource_args)
+                )
             elif isinstance(resource, dict):
                 resource_class, resource_args = resource
-                api.add_resource(resource_class, url, resource_class_kwargs=resource_args)
+                api.add_resource(
+                    resource_class, url, resource_class_kwargs=resource_args
+                )
             else:
                 api.add_resource(resource, url)
         for url, value in function_routes.items():

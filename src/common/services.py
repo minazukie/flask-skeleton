@@ -80,7 +80,9 @@ class CommonService:
         asc = page_args.get("asc", False)
 
         data = self.retrieve(where_condition, page, page_size, order_by, asc)
-        return paginated_wrapper(name, data, self.total(where_condition), page, page_size)
+        return paginated_wrapper(
+            name, data, self.total(where_condition), page, page_size
+        )
 
     @staticmethod
     def rm_id_prefix(elements: Union[list, dict]):

@@ -62,9 +62,7 @@ def parse_args(self, req=None, strict=False, http_error_code=400):
         if found or arg.store_missing:
             namespace[arg.dest or arg.name] = value
     if errors:
-        raise ValueParseError(
-            http_error_code, errors[list(errors.keys())[0]]
-        )
+        raise ValueParseError(http_error_code, errors[list(errors.keys())[0]])
 
     if strict and req.unparsed_arguments:
         raise exceptions.BadRequest(

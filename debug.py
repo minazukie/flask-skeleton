@@ -15,6 +15,7 @@ os.environ["PYTHONPATH"] = os.path.dirname(os.path.abspath(__file__))
 @failsafe
 def start_debug() -> Flask:
     from src.app import AppFactory
+
     return AppFactory.create()
 
 

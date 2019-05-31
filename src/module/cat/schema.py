@@ -16,9 +16,9 @@ class Tag(JsonSchemaMixin):
 class CatSchema(JsonSchemaMixin):
     name: str
     age: int
-    gender: int   # 0: male 1: female 2: other
+    gender: int  # 0: male 1: female 2: other
     birthday: int
     tags: List[Tag]
-    state: str = 'active'
+    state: str = "active"
     created_at: int = field(default_factory=lambda: int(time.time()))
     updated_at: int = field(default_factory=lambda: int(time.time()))
