@@ -67,15 +67,20 @@ class CommonService:
         return self.Model.objects(**where).count()
 
     def list(self, name: str, where: dict, page_args: dict) -> dict:
-        fuzzy_where = {f"{k}__contains": v for k, v in where.items()}
+        where_condition = {}
+        for k, v in where.items():
+            if isinstance(v, list):
+                where_condition[k] = v[0]
+            else:
+                where_condition[f"{k}__contains"] = v
 
         page = page_args.get("page", 1)
         page_size = page_args.get("page_size", 10)
         order_by = page_args.get("order_by") or "id"
         asc = page_args.get("asc", False)
 
-        data = self.retrieve(fuzzy_where, page, page_size, order_by, asc)
-        return paginated_wrapper(name, data, self.total(fuzzy_where), page, page_size)
+        data = self.retrieve(where_condition, page, page_size, order_by, asc)
+        return paginated_wrapper(name, data, self.total(where_condition), page, page_size)
 
     @staticmethod
     def rm_id_prefix(elements: Union[list, dict]):
